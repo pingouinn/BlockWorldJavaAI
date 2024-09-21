@@ -7,7 +7,7 @@ import modelling.Variable;
 
 import java.util.HashSet;
 
-public class BlocksWorldVariables {
+public class BWData {
 
     private int blocksAmount;
     private int stackAmount;
@@ -17,7 +17,7 @@ public class BlocksWorldVariables {
     private Set<Variable> free;
     private Set<Variable> all;
 
-    public BlocksWorldVariables(int blocksAmount, int stackAmount) {
+    public BWData(int blocksAmount, int stackAmount) {
         this.blocksAmount = blocksAmount;
         this.stackAmount = stackAmount;
 

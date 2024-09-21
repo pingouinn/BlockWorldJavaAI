@@ -12,6 +12,6 @@
 # Mac OS X files
 .DS_Store
 
-# vscode
+# VS Code files
 .vscode
 

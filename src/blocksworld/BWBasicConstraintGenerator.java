@@ -10,7 +10,6 @@ import modelling.DifferenceConstraint;
 import modelling.Implication;
 import modelling.Variable;
 
-//TODO: EX2
 public class BWBasicConstraintGenerator {
     
     private BWData data;
@@ -21,51 +20,39 @@ public class BWBasicConstraintGenerator {
         this.data = new BWData(blocksAmount, stackAmount);
         this.constraints = new HashSet<>();
 
-        createNotSameConstraint();
-        createIsFixedConstraints();
-        createIsFreeConstraints();
-
+        createBasicConstraint();
     }
 
     public Set<Constraint> getConstraints() {
         return this.constraints;
     }
 
-    private void createNotSameConstraint() {
-        List<Variable> on = new ArrayList<>(this.data.getOn());
-        for (int i = 0; i < this.data.getBlocksAmount(); i++) {
-            for (int j = i + 1; j < this.data.getBlocksAmount(); j++) {
-                this.constraints.add(new DifferenceConstraint(on.get(i), on.get(j)));
-            }
-        }
-    }
-
-    private void createIsFixedConstraints() {
+    private void createBasicConstraint() {
         List<Variable> on = new ArrayList<>(this.data.getOn());
         List<Variable> fixed = new ArrayList<>(this.data.getFixed());
-        for (int i = 0; i < this.data.getBlocksAmount(); i++) {
-            for (int j = 0; j < this.data.getBlocksAmount(); j++) {
-                if (i == j) continue;
-                Set<Object> isOnbPrime = new HashSet<>();
-                isOnbPrime.add(fixed.get(j));
+        List<Variable> free = new ArrayList<>(this.data.getFree());
 
+        for (int b = 0; b < this.data.getBlocksAmount(); b++) {
+            for (int bPrime = 0; bPrime < this.data.getBlocksAmount(); bPrime++) {
+                if (b == bPrime) continue;//don't create constraint for the same block
+
+                if (b < bPrime)// check for b and bPrime is the same as bPrime and b
+                    this.constraints.add(new DifferenceConstraint(on.get(b), on.get(bPrime))); //createNotSameConstraint
+
+                Set<Object> isOnBPrime = new HashSet<>();
+                isOnBPrime.add(fixed.get(bPrime));
                 Set<Object> isFixed = new HashSet<>();
                 isFixed.add(true);
-                this.constraints.add(new Implication(on.get(i), isOnbPrime, fixed.get(j), isFixed));
+                this.constraints.add(new Implication(on.get(b), isOnBPrime, fixed.get(bPrime), isFixed)); //createIsFixedConstraints
+                
             }
-        }
-    }
 
-    private void createIsFreeConstraints() {
-        List<Variable> on = new ArrayList<>(this.data.getOn());
-        List<Variable> free = new ArrayList<>(this.data.getFree());
-        for (int i = 0; i < this.data.getBlocksAmount(); i++) {
-            for (int j = -(this.data.getStackAmount()); j < 0; j++) {
-                Set<Object> isOnStack = new HashSet<>();
-                isOnStack.add(j);
+            for (int p = -(this.data.getStackAmount()); p < 0; p++) {
+                Set<Object> isOnP = new HashSet<>();
+                isOnP.add(p);
                 Set<Object> isFree = new HashSet<>();
                 isFree.add(false);
-                this.constraints.add(new Implication(on.get(i), isOnStack, free.get(i), isFree));
+                this.constraints.add(new Implication(on.get(b), isOnP, free.get(p), isFree)); //createIsFreeConstraints
             }
         }
     }

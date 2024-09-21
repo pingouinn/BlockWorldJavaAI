@@ -23,9 +23,8 @@ public class BWData {
 
         this.all = new HashSet<>();
 
-        createOnVariables();
-        createFixedVariables();
         createFreeVariables();
+        createBlockVariables();
     }
 
     public int getBlocksAmount() {
@@ -52,34 +51,31 @@ public class BWData {
         return this.all;
     }
 
-    private void createOnVariables() {
+    private void createBlockVariables() {
         this.on = new HashSet<>();
+        this.fixed = new HashSet<>();
+
         Set<Object> wholeDomain = createDomain();
 
         for (int i = 0; i < this.blocksAmount; i++) {
             Set<Object> domain = new HashSet<>(wholeDomain);
             domain.remove(i);
-            Variable var = new Variable("on" + i, domain);
-            this.on.add(var);
-            this.all.add(var);
-        }
-    }
+            Variable onB = new Variable("on" + i, domain);
+            this.on.add(onB);
+            this.all.add(onB);
 
-    private void createFixedVariables() {
-        this.fixed = new HashSet<>();
-        for (int i = 0; i < this.blocksAmount; i++) {
-            Variable var = new BooleanVariable("fixed" + i);
-            this.fixed.add(var);
-            this.all.add(var);
+            Variable fixedB = new BooleanVariable("fixed" + i);
+            this.fixed.add(fixedB);
+            this.all.add(fixedB);
         }
     }
 
     private void createFreeVariables() {
         this.free = new HashSet<>();
         for (int i = 0; i < this.stackAmount; i++) {
-            Variable var = new BooleanVariable("free" + i);
-            this.free.add(var);
-            this.all.add(var);
+            Variable freeP = new BooleanVariable("free" + i);
+            this.free.add(freeP);
+            this.all.add(freeP);
         }
     }
 

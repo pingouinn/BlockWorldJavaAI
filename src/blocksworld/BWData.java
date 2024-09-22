@@ -51,6 +51,15 @@ public class BWData {
         return this.all;
     }
 
+    private void createFreeVariables() {
+        this.free = new HashSet<>();
+        for (int i = 0; i < this.stackAmount; i++) {
+            Variable freeP = new BooleanVariable("free" + i);
+            this.free.add(freeP);
+            this.all.add(freeP);
+        }
+    }
+
     private void createBlockVariables() {
         this.on = new HashSet<>();
         this.fixed = new HashSet<>();
@@ -67,15 +76,6 @@ public class BWData {
             Variable fixedB = new BooleanVariable("fixed" + i);
             this.fixed.add(fixedB);
             this.all.add(fixedB);
-        }
-    }
-
-    private void createFreeVariables() {
-        this.free = new HashSet<>();
-        for (int i = 0; i < this.stackAmount; i++) {
-            Variable freeP = new BooleanVariable("free" + i);
-            this.free.add(freeP);
-            this.all.add(freeP);
         }
     }
 

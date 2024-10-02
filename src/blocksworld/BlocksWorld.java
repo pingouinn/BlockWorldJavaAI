@@ -47,8 +47,8 @@ public class BlocksWorld {
                 
             }
 
-            for (int p = -(this.data.getStackAmount()); p < 0; p++) {
-                Set<Object> isOnP = Set.of(p);// dont need to make -(p + 1) because the loop start in negative
+            for (int p = 0; p < this.data.getStackAmount(); p++) {
+                Set<Object> isOnP = Set.of(-(p + 1));
                 Set<Object> isNotFree = Set.of(false);
                 this.constraints.add(new Implication(on[b], isOnP, free[p], isNotFree)); //createIsFreeConstraints
             }

@@ -15,8 +15,10 @@ public class BWRegularConstraintsBuilder {
     public BWRegularConstraintsBuilder(BlocksWorld bw) {
         this.data = bw.getData();
         this.constraints = bw.getConstraints();
+    }
 
-        createRegularConstraint();
+    public void build() {
+        this.createRegularConstraint();
     }
 
     public Set<Constraint> getConstraints() {
@@ -24,7 +26,7 @@ public class BWRegularConstraintsBuilder {
     }
 
     public void createRegularConstraint() {
-        Variable[] on = this.data.getOn().toArray(Variable[]::new);
+        Variable[] on = this.data.getOnArray();
 
         for (int b = 0; b < this.data.getBlocksAmount(); b++) {
             for (int bPrime = 0; bPrime < this.data.getBlocksAmount(); bPrime++) {

@@ -13,14 +13,20 @@ public class BWData {
     private int stackAmount;
 
     private Set<Variable> on;
+    private Variable[] onArray;
     private Set<Variable> fixed;
+    private Variable[] fixedArray;
     private Set<Variable> free;
+    private Variable[] freeArray;
     private Set<Variable> all;
 
     public BWData(int blocksAmount, int stackAmount) {
         this.blocksAmount = blocksAmount;
         this.stackAmount = stackAmount;
 
+        this.onArray = new Variable[blocksAmount];
+        this.fixedArray = new Variable[blocksAmount];
+        this.freeArray = new Variable[stackAmount];
         this.all = new HashSet<>();
 
         createFreeVariables();
@@ -39,12 +45,24 @@ public class BWData {
         return this.on;
     }
 
+    public Variable[] getOnArray() {
+        return this.onArray;
+    }
+
     public Set<Variable> getFixed() {
         return this.fixed;
     }
 
+    public Variable[] getFixedArray() {
+        return this.fixedArray;
+    }
+
     public Set<Variable> getFree() {
         return this.free;
+    }
+
+    public Variable[] getFreeArray() {
+        return this.freeArray;
     }
 
     public Set<Variable> getAll() {
@@ -56,6 +74,7 @@ public class BWData {
         for (int i = 0; i < this.stackAmount; i++) {
             Variable freeP = new BooleanVariable("free" + i);
             this.free.add(freeP);
+            this.freeArray[i] = freeP;
             this.all.add(freeP);
         }
     }
@@ -71,10 +90,12 @@ public class BWData {
             domain.remove(i);
             Variable onB = new Variable("on" + i, domain);
             this.on.add(onB);
+            this.onArray[i] = onB;
             this.all.add(onB);
 
             Variable fixedB = new BooleanVariable("fixed" + i);
             this.fixed.add(fixedB);
+            this.fixedArray[i] = fixedB;
             this.all.add(fixedB);
         }
     }

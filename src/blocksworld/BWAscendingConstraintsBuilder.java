@@ -20,6 +20,10 @@ public class BWAscendingConstraintsBuilder {
         createAscendingConstraint();
     }
 
+    public void build() {
+        createAscendingConstraint();
+    }
+
     public Set<Constraint> getConstraints() {
         return this.constraints;
     }

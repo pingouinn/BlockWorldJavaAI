@@ -30,9 +30,9 @@ public class BlocksWorld {
     }
 
     private void createBasicConstraint() {
-        Variable[] on = this.data.getOn().toArray(Variable[]::new);
-        Variable[] fixed = this.data.getFixed().toArray(Variable[]::new);
-        Variable[] free = this.data.getFree().toArray(Variable[]::new);
+        Variable[] on = this.data.getOnArray();
+        Variable[] fixed = this.data.getFixedArray();
+        Variable[] free = this.data.getFreeArray();
 
         for (int b = 0; b < this.data.getBlocksAmount(); b++) {
             for (int bPrime = 0; bPrime < this.data.getBlocksAmount(); bPrime++) {

@@ -6,7 +6,6 @@ import java.util.Map;
 import blocksworld.BWAscendingConstraintsBuilder;
 import blocksworld.BWRegularConstraintsBuilder;
 import blocksworld.BlocksWorld;
-import blockworld.*;
 
 public class main {
     public static void main(String[] args) {
@@ -18,9 +17,9 @@ public class main {
         System.out.println("Constraints amount "+bw.getConstraints().size());
 
         Map<Variable, Object> state = new HashMap<Variable, Object>();
-        Variable[] on = bw.getData().getOn().toArray(Variable[]::new);
-        Variable[] fixed = bw.getData().getFixed().toArray(Variable[]::new);
-        Variable[] free = bw.getData().getFree().toArray(Variable[]::new);
+        Variable[] on = bw.getData().getOnArray();
+        Variable[] fixed = bw.getData().getFixedArray();
+        Variable[] free = bw.getData().getFreeArray();
 
         // Here the blocks are stacked on a single stack, the stack 1 and 2 are free, the blocks 0 and 1 are fixed and only the top one (block 2) is okay to moove
         state.put(on[0], -1);

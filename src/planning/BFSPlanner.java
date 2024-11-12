@@ -51,7 +51,7 @@ public class BFSPlanner implements Planner {
                         if (isNodeCountActive)
                             nodeCount++;
                         if (this.goal.isSatisfiedBy(newState))
-                            return this.getBfsPlan(father, plan, newState);
+                            return BFSPlanner.getBfsPlan(father, plan, newState);
                         open.add(newState);
                     }
                 }
@@ -60,7 +60,7 @@ public class BFSPlanner implements Planner {
         return null;
     }
 
-    private List<Action> getBfsPlan(Map<Map<Variable, Object>, Map<Variable, Object>> father,
+    public static List<Action> getBfsPlan(Map<Map<Variable, Object>, Map<Variable, Object>> father,
         Map<Map<Variable, Object>, Action> plan, Map<Variable, Object> goal) {
         Queue<Action> bfsPlan = new LinkedList<Action>();
         while (plan.get(goal) != null) {
@@ -69,8 +69,10 @@ public class BFSPlanner implements Planner {
         }
 
         List<Action> reversedBfsPlan = new ArrayList<Action>();
+        System.out.println("normal : " + bfsPlan);
         while (!bfsPlan.isEmpty())
-            reversedBfsPlan.add(bfsPlan.peek());
+            reversedBfsPlan.add(0, bfsPlan.poll());
+        System.out.println("reversed : " + reversedBfsPlan);
         return reversedBfsPlan;
     }
 

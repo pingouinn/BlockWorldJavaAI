@@ -63,7 +63,7 @@ public class AStarPlanner implements Planner {
                 .min((x, xPrime) -> Double.compare(value.get(x), value.get(xPrime)))
                 .get();
             if (goal.isSatisfiedBy(instantiation))
-                return getBfsPlan(father, plan, instantiation);
+                return BFSPlanner.getBfsPlan(father, plan, instantiation);
             open.remove(instantiation);
             for (Action action : this.actions) {
                 if (action.isApplicable(instantiation)) {
@@ -86,21 +86,6 @@ public class AStarPlanner implements Planner {
         }
         return null;
     }
-
-    private List<Action> getBfsPlan(Map<Map<Variable, Object>, Map<Variable, Object>> father,
-        Map<Map<Variable, Object>, Action> plan, Map<Variable, Object> goal) {
-        Queue<Action> bfsPlan = new LinkedList<Action>();
-        while (plan.get(goal) != null) {
-            bfsPlan.add(plan.get(goal));
-            goal = father.get(goal);
-        }
-
-        List<Action> reversedBfsPlan = new ArrayList<Action>();
-        while (!bfsPlan.isEmpty())
-            reversedBfsPlan.add(bfsPlan.poll());
-        return reversedBfsPlan;
-    }
-
 
     @Override
     public int getNodeCount() {

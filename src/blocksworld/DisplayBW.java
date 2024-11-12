@@ -7,6 +7,7 @@ import java.awt.Point;
 
 import bwmodel.BWState;
 import bwmodel.BWStateBuilder;
+import bwui.BWComponent;
 import bwui.BWIntegerGUI;
 
 import modelling.Variable;
@@ -15,37 +16,40 @@ public class DisplayBW {
     private BWData data;
     private String title;
     private int nbState;
-    private Point location;
+    private JFrame frame;
+    private BWComponent<Integer> comp;
 
-    public DisplayBW(String title, BWData data, int x, int y) {
+    public DisplayBW(String title, BWData data, int x, int y, Map<Variable, Object> state) {
         this.title = title;
         this.data = data;
         this.nbState = 0;
-        this.location = new Point(x, y);
+        this.frame = new JFrame(title + " - State " + this.nbState);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(x, y);
+        frame.setSize(new Dimension(650, 400));
+
+        int blocksAmount = this.data.getBlocksAmount();
+        BWIntegerGUI gui = new BWIntegerGUI(blocksAmount);
+        this.comp = gui.getComponent(buildState(state, blocksAmount));
+        this.frame.add(comp);
+        this.frame.setVisible(true);
     }
 
     public BWState<Integer> buildState(Map<Variable, Object> state, int blocksAmount) {
         Variable[] on = this.data.getOnArray();
         BWStateBuilder<Integer> builder = BWStateBuilder.makeBuilder(blocksAmount);
         for (int b = 0; b < blocksAmount; b++) {
-            Variable onB = on[b];
-            int under = (int) state.get(onB);
+            int under = (int) state.get(on[b]);
             if (under >= 0)
                 builder.setOn(b, under);
         }
         return builder.getState();
     }
 
-    public void display(Map<Variable, Object> state) {
-        int blocksAmount = this.data.getBlocksAmount();
-        BWIntegerGUI gui = new BWIntegerGUI(blocksAmount);
-        JFrame frame = new JFrame(this.title + " - State " + this.nbState++);
-        frame.add(gui.getComponent(buildState(state, blocksAmount)));
-        frame.pack();
-        frame.setVisible(true);
-        frame.setPreferredSize(new Dimension(700, 700));
-        frame.setLocation(this.location);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void next(Map<Variable, Object> state) {
+        this.frame.setTitle(title + " - State " + ++this.nbState);
+        this.comp.setState(buildState(state, this.data.getBlocksAmount()));
     }
 
 }

@@ -3,7 +3,6 @@ package blocksworld;
 import java.util.Set;
 import java.util.HashSet;
 
-
 import modelling.Constraint;
 import modelling.Implication;
 import modelling.Variable;

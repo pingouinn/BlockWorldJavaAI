@@ -70,7 +70,7 @@ public class BFSPlanner implements Planner {
 
         List<Action> reversedBfsPlan = new ArrayList<Action>();
         while (!bfsPlan.isEmpty())
-            reversedBfsPlan.add(bfsPlan.poll());
+            reversedBfsPlan.add(bfsPlan.peek());
         return reversedBfsPlan;
     }
 

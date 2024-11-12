@@ -41,4 +41,13 @@ public class BasicAction implements Action{
     public int getCost() {
         return cost;
     }
+
+    @Override
+    public String toString() {
+        return "\nBasicAction {" +
+                "\n\tpreconditions=" + preconditions +
+                ", \n\teffects=" + effects +
+                ", \n\tcost=" + cost +
+                "\n}\n";
+    }
 }

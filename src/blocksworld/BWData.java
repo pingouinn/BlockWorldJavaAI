@@ -72,7 +72,7 @@ public class BWData {
     private void createFreeVariables() {
         this.free = new HashSet<>();
         for (int i = 0; i < this.stackAmount; i++) {
-            Variable freeP = new BooleanVariable("free" + i);
+            Variable freeP = new BooleanVariable("free_" + i);
             this.free.add(freeP);
             this.freeArray[i] = freeP;
             this.all.add(freeP);
@@ -88,12 +88,12 @@ public class BWData {
         for (int i = 0; i < this.blocksAmount; i++) {
             Set<Object> domain = new HashSet<>(wholeDomain);
             domain.remove(i);
-            Variable onB = new Variable("on" + i, domain);
+            Variable onB = new Variable("on_" + i, domain);
             this.on.add(onB);
             this.onArray[i] = onB;
             this.all.add(onB);
 
-            Variable fixedB = new BooleanVariable("fixed" + i);
+            Variable fixedB = new BooleanVariable("fixed_" + i);
             this.fixed.add(fixedB);
             this.fixedArray[i] = fixedB;
             this.all.add(fixedB);

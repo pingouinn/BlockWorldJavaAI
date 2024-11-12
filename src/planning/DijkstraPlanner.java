@@ -98,7 +98,7 @@ public class DijkstraPlanner implements Planner {
         }
         List<Action> reversedPlan = new ArrayList<Action>();
         while (!dijkstraPlan.isEmpty()) {
-            reversedPlan.add(0, dijkstraPlan.poll());
+            reversedPlan.add(0, dijkstraPlan.peek());
         }
         return reversedPlan;
     }

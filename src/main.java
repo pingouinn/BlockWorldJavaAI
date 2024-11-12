@@ -1,8 +1,12 @@
-import blocksworld.*;
 import modelling.Variable;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import blocksworld.BWAscendingConstraintsBuilder;
+import blocksworld.BWRegularConstraintsBuilder;
+import blocksworld.BlocksWorld;
+import blockworld.*;
 
 public class main {
     public static void main(String[] args) {

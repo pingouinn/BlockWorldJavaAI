@@ -6,6 +6,5 @@ import modelling.Variable;
 
 public interface Goal {
 
-    boolean isSatisfiedBy(Map<Variable,
-    Object> state);
+    boolean isSatisfiedBy(Map<Variable, Object> state);
 }

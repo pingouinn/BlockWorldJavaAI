@@ -1,16 +1,15 @@
-package blocksworld;
+package blocksworld.heuristics;
 
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import planning.Heuristic;
 import modelling.Variable;
 
-public class DeepsForWellNotPlacedBlockHeuristic implements Heuristic {
+public class DeepsForNotWellPlacedBlockHeuristic implements Heuristic {
     private Map<Variable, Object> goalState;
 
-    public DeepsForWellNotPlacedBlockHeuristic(Map<Variable, Object> goalState) {
+    public DeepsForNotWellPlacedBlockHeuristic(Map<Variable, Object> goalState) {
         this.goalState = goalState;
     }
 
@@ -34,8 +33,8 @@ public class DeepsForWellNotPlacedBlockHeuristic implements Heuristic {
         Map<Integer, Integer> deeps = new HashMap<>();
         goalState.forEach((var, value) -> {
             String varName = var.getName();
-            int intValue = (int) value;
             if (varName.contains("on")) {
+                int intValue = (int) value;
                 String[] parts = varName.split("_");
                 int block = Integer.parseInt(parts[1]);
                 deeps.putIfAbsent(block, 0);
@@ -50,11 +49,11 @@ public class DeepsForWellNotPlacedBlockHeuristic implements Heuristic {
     
 
     private void updateDepths(Map<Integer, Integer> deeps, int block) {
-        deeps.put(block, deeps.get(block) + 1);
+        deeps.put(block, deeps.getOrDefault(block, 0) + 1);
         goalState.forEach((var, value) -> {
             String varName = var.getName();
-            int intValue = (int) value;
             if (varName.contains("on")) {
+                int intValue = (int) value;
                 String[] parts = varName.split("_");
                 int subBlock = Integer.parseInt(parts[1]);
                 if (subBlock == block && intValue >= 0) {

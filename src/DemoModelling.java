@@ -7,7 +7,7 @@ import blocksworld.BWAscendingConstraintsBuilder;
 import blocksworld.BWRegularConstraintsBuilder;
 import blocksworld.BlocksWorld;
 
-public class main {
+public class DemoModelling {
     public static void main(String[] args) {
 
         // Create a blockworld and test the bas constraints on the initialisation process

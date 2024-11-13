@@ -10,6 +10,11 @@ public class Variable {
         this.name = name;
         this.domain = domain;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
     
     @Override
     public boolean equals(Object obj) {

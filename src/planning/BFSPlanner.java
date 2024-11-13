@@ -67,12 +67,9 @@ public class BFSPlanner implements Planner {
             bfsPlan.add(plan.get(goal));
             goal = father.get(goal);
         }
-
         List<Action> reversedBfsPlan = new ArrayList<Action>();
-        System.out.println("normal : " + bfsPlan);
         while (!bfsPlan.isEmpty())
             reversedBfsPlan.add(0, bfsPlan.poll());
-        System.out.println("reversed : " + reversedBfsPlan);
         return reversedBfsPlan;
     }
 

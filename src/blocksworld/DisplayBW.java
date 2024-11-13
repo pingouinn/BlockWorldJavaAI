@@ -3,7 +3,6 @@ package blocksworld;
 import java.util.Map;
 import javax.swing.JFrame;
 import java.awt.Dimension;
-import java.awt.Point;
 
 import bwmodel.BWState;
 import bwmodel.BWStateBuilder;

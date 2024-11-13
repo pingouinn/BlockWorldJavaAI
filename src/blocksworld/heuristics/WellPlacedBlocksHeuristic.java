@@ -1,4 +1,4 @@
-package blocksworld;
+package blocksworld.heuristics;
 
 import java.util.Map;
 

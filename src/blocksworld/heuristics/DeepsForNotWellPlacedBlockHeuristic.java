@@ -13,7 +13,6 @@ public class DeepsForNotWellPlacedBlockHeuristic implements Heuristic {
         this.goalState = goalState;
     }
 
-    
     @Override
     public float estimate(Map<Variable, Object> state) {
         Map<Integer, Integer> deeps = getDeeps();

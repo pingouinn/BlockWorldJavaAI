@@ -2,6 +2,7 @@ package cp;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -29,17 +30,30 @@ public class ArcConsistency {
 
     public boolean enforceNodeConsistency(Map<Variable, Set<Object>> domains) {
         boolean allDomainsNonEmpty = true;
+        Map<Variable, Set<Object>> tmp = new HashMap<>();
+    
+        // Create a mutable copy of each domain set
         for (Map.Entry<Variable, Set<Object>> entry : domains.entrySet()) {
+            tmp.put(entry.getKey(), new HashSet<>(entry.getValue()));
+        }
+    
+        for (Map.Entry<Variable, Set<Object>> entry : tmp.entrySet()) {
             Variable v = entry.getKey();
-            Set<Object> domain = new HashSet<>(entry.getValue());
+            Set<Object> domain = entry.getValue();
+            
             domain.removeIf(value -> unaryConstraints.stream()
                 .anyMatch(c -> 
                     c.getScope().contains(v)
                     && !c.isSatisfiedBy(Map.of(v, value))
                 )
             );
-            if (domain.isEmpty())
+    
+            if (domain.isEmpty()) {
                 allDomainsNonEmpty = false;
+            }
+            
+            // Update the original domains map with the modified domain
+            domains.put(v, domain);
         }
         return allDomainsNonEmpty;
     }

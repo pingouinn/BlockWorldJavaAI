@@ -113,7 +113,7 @@ public class DemoModelling {
 
         checkWorldPrint(bw4, state4, "A world where stack 1 is free but there is block on it");
 
-        //
+        // Check the regular constraints
 
         BlocksWorld bw5 = new BlocksWorld(6, 3);
         new BWRegularConstraintsBuilder(bw5).build();

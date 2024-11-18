@@ -53,14 +53,4 @@ public class BlocksWorld {
             }
         }
     }
-
-    private Set<Object> createFullDomainExcept(int except) {
-        Set<Object> domain = new HashSet<>();
-        for (int i = 0; i < this.data.getBlocksAmount(); i++) {
-            if (i != except)
-                domain.add(i);
-        }
-        return domain;
-
-    }
 }

@@ -35,7 +35,7 @@ public class DisplayBW {
         this.frame.setVisible(true);
     }
 
-    public BWState<Integer> buildState(Map<Variable, Object> state, int blocksAmount) {
+    private BWState<Integer> buildState(Map<Variable, Object> state, int blocksAmount) {
         Variable[] on = this.data.getOnArray();
         BWStateBuilder<Integer> builder = BWStateBuilder.makeBuilder(blocksAmount);
         for (int b = 0; b < blocksAmount; b++) {

@@ -24,7 +24,7 @@ public class BWRegularConstraintsBuilder {
         return this.constraints;
     }
 
-    public void createRegularConstraint() {
+    private void createRegularConstraint() {
         Variable[] on = this.data.getOnArray();
 
         for (int b = 0; b < this.data.getBlocksAmount(); b++) {

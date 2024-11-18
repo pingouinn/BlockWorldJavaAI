@@ -16,8 +16,6 @@ public class BWAscendingConstraintsBuilder {
     public BWAscendingConstraintsBuilder(BlocksWorld bw) {
         this.data = bw.getData();
         this.constraints = bw.getConstraints();
-
-        createAscendingConstraint();
     }
 
     public void build() {
@@ -28,7 +26,7 @@ public class BWAscendingConstraintsBuilder {
         return this.constraints;
     }
 
-    public void createAscendingConstraint() {
+    private void createAscendingConstraint() {
         Variable[] on = this.data.getOn().toArray(Variable[]::new);
 
         for (int b = 0; b < this.data.getBlocksAmount(); b++) {

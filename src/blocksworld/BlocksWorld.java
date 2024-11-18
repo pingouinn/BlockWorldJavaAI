@@ -13,7 +13,6 @@ public class BlocksWorld {
     private BWData data;
     private Set<Constraint> constraints;
 
-    
     public BlocksWorld(int blocksAmount, int stackAmount) {
         this.data = new BWData(blocksAmount, stackAmount);
         this.constraints = new HashSet<>();
@@ -44,7 +43,7 @@ public class BlocksWorld {
                 Set<Object> isOnBPrime = Set.of(bPrime);
                 Set<Object> isFixed = Set.of(true);
                 this.constraints.add(new Implication(on[b], isOnBPrime, fixed[bPrime], isFixed)); //createIsFixedConstraints
-                
+
             }
 
             for (int p = 0; p < this.data.getStackAmount(); p++) {
@@ -53,5 +52,15 @@ public class BlocksWorld {
                 this.constraints.add(new Implication(on[b], isOnP, free[p], isNotFree)); //createIsFreeConstraints
             }
         }
+    }
+
+    private Set<Object> createFullDomainExcept(int except) {
+        Set<Object> domain = new HashSet<>();
+        for (int i = 0; i < this.data.getBlocksAmount(); i++) {
+            if (i != except)
+                domain.add(i);
+        }
+        return domain;
+
     }
 }

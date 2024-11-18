@@ -246,6 +246,5 @@ public class DemoModelling {
         }
         
         System.out.println("\nCheck if for all constraints is satisfied by the state : " + bw.getConstraints().stream().allMatch(c -> c.isSatisfiedBy(state)));
-
     }
 }

@@ -23,8 +23,6 @@ public class DemoSolveWithAscendingConstraints {
         // Creating constraints
         new BWAscendingConstraintsBuilder(world).build();
 
-        // GoalState
-        // For the final goal, we want to have the blocks in the same order on the stack 2
         ValueHeuristic valueHeuristic = new RandomValueHeuristic(new Random());
         VariableHeuristic nbConstraintsVariableHeuristic = new NbConstraintsVariableHeuristic(world.getConstraints(), true);
         VariableHeuristic domainSizeVariableHeuristic = new DomainSizeVariableHeuristic(true);
@@ -49,5 +47,4 @@ public class DemoSolveWithAscendingConstraints {
             x += 650;
         }
     }
-
 }
